@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wann zum Bürgerservice?</title>
+<meta charset="utf-8"/>
+<meta property="og:title" content="Wann zum Bürgerservice?" />
+<meta property="og:url" content="http://wannaufsamt.tentacleriot.eu" />
+<meta property="og:image" content="http://wannaufsamt.tentacleriot.eu/waa.png" />
+<meta property="og:description" content="Wann geht man am besten zum
+Bürgerservice? Mittwoch bis Samstag Vormittag. Die Grafik zeigt die durchschittlichen
+Wartezeiten vom Bürgerservice in Moers nach Wochentagen und Stunden" />
+
+<style>
+body {
+  font-family: open-sans, helvetica, sans;
+  }
+
+div.text {
+  font-family: garamond, serif;
+  }
+g.data {
+  opacity: 0.2;
+  }
+g.data:hover {
+  opacity: 1 }
+
+g.data:hover > circle, g.selected > circle {
+  stroke: #00F;
+  }
+
+
+g > circle  {
+  fill: none;
+  stroke: rgb(255,20,20);
+  stroke-width: 2px;
+  }
+
+g.axis > path{
+  fill: none }
+
+g.tick > line {
+  stroke: #000;
+  stroke-width: 1px;
+  }
+rect.legend {
+  fill: none;
+  stroke: #CCC;
+  stroke-width: 1px;
+  stroke-dasharray: 3,3;
+  }
+
+div.content {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+ul#control > li:hover, ul#control > li.selected {
+  background: #00F;
+  color: white;
+  }
+ul#control > li {
+  display: inline-block;
+  width: 5em;
+  background: rgba(255,20,20,0.2);
+  text-align: center;
+  margin: 2px;
+  padding: 2px;
+  border-radius: 2px;
+  font-size: 90%;
+  }
+
+ul#control {
+  list-style: none;
+  padding: 0px;
+  }
+
+</style>
+<body>
+    <div class="content">
+        <h1>Wann zum Bürgerservice?</h1>
+        <div id="graph"></div>
+
+        <h2>Bezirksamt</h2>
+        <ul id="control"></ul>
+
+        <div class="text">
+            <p>
+Die Stadt Moers veröffentlicht die Wartezeiten für den Bürgerservice. Die obenliegende Grafik zeigt die durchschnittlichen Wartezeiten für den Bürgerservice nach Stunden und Tagen.
+Mittwoch bis Samstag Vormittag scheinen die besten Zeiten zu sein, zum Bürgerservice zu gehen.
+            </p>
+            <p>
+Einzelne Wochen können in der Auswahl unten angewählt werden, die dazugehörigen Wartezeiten erscheinen dann in der Grafik hervorgehoben. 
+            </p>
+            <p>
+Umsetzung: <a href="http://www.tursics.de/about/">Thomas Tursics</a>
+Umsetzung: <a href="http://tentacleriot.eu/about.html">Michael Bauer</a>
+mit Daten vom <a href="http://www.moers.de/C1256D02002E0B7D/html/414B1FE0CE8DEE59C1256DE800341921?opendocument">Bürgerservice</a> in Moers. 
+(<a href="http://www.moers.de/C1257221003C7526/html/6255084CF2B8082AC1257D33003E3B14?opendocument">Datensatz</a>)
+            </p>
+        </div>
+    </div>
+
+<script src="d3.v3_4_11.min.js"></script>
+<script src="underscore.v1_7_0.min.js"></script>
+<script>
+
+var days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+var width = 1000;
+var height = 500;
+var min_r = 2;
+var max_r = 30;
+var distance = 50;
+
+var svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
+
+function select( d )
+{
+    if( d3.select( "#control-" + d ).attr( "class" ) == "selected" ) {
+        d3.select( "#control-" + d ).attr( "class", "" );
+        d3.select( "#group-"   + d ).attr( "class", "data" );
+    } else {
+        d3.selectAll( "#control > li" ).attr( "class", "" );
+        d3.selectAll( "g.selected"    ).attr( "class", "data" )
+        d3.select( "#control-" + d    ).attr( "class", "selected" );
+        d3.select( "#group-"   + d    ).attr( "class", "selected" );
+    }
+}
+
+function getDateOfISOWeek(w, y) {
+    var simple = new Date(y, 0, 1 + (w - 1) * 7);
+    var dow = simple.getDay();
+    var ISOweekStart = simple;
+    if (dow <= 4)
+        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    return ISOweekStart;
+}
+
+d3.json("data.json",
+    function(d) {
+        console.log(d[0]);
+
+        waits = _.map(d, function(d) {
+            return d.wait;
+        });
+        wds = _.map(d, function(d) {
+            return d.weekday;
+        });
+        hrs = _.map(d, function(d) {
+            return d.hour;
+        });
+
+        console.log(_.uniq(wds));
+
+        rscale = d3.scale.sqrt().domain([_.min(waits), _.max(waits)]).range([min_r, max_r]);
+        yscale = d3.scale.linear().domain([_.min(wds), _.max(wds)]).range([distance, height - distance]);
+        xscale = d3.scale.linear().domain([_.min(hrs), _.max(hrs)]).range([distance, width - distance]);
+
+        xaxis = d3.svg.axis().scale(xscale).orient("bottom").ticks(11).tickValues([8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]);
+        yaxis = d3.svg.axis().scale(yscale).orient("left").ticks(6).tickValues([0, 1, 2, 3, 4, 5]).tickFormat(function(d) { return days[d] });
+
+        d = _.map(d, function(d) {
+            d.r = rscale(d.wait);
+            d.x = xscale(d.hour);
+            d.y = yscale(d.weekday);
+            return d;
+        });
+
+        d = _.values(_.reduce(d, function(x, y) {
+            if (x[y.week]) {
+                x[y.week].push(y);
+            } else {
+                x[y.week] = [y];
+            }
+            return x;
+        },
+        {
+    }));
+
+    weeks = _.map(d, function(d) {
+        return d[0].week;
+    });
+
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(" + [0, height - 20] + ")")
+      .call(xaxis)
+
+    svg.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(" + [30, 0] + ")")
+      .call(yaxis)
+
+    legend = svg.append("g")
+      .attr("transform", "translate(" + [width - distance - 150, 15] + ")")
+
+    legend.append("rect")
+      .attr("class", "legend")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", 150)
+      .attr("height", 120)
+
+    legend.append("circle")
+      .attr("cx", 10 + max_r)
+      .attr("cy", 10 + max_r)
+      .attr("r", max_r)
+
+    legend.append("circle")
+      .attr("cx", 110)
+      .attr("cy", 10 + max_r)
+      .attr("r", min_r)
+
+    legend.append("text")
+      .attr("x", 10 + max_r)
+      .attr("y", max_r * 2 + 30)
+      .attr("text-anchor", "middle")
+      .text(_.max(waits))
+
+    legend.append("text")
+      .attr("x", 110)
+      .attr("y", max_r * 2 + 30)
+      .attr("text-anchor", "middle")
+      .text(_.min(waits))
+
+    legend.append("text")
+      .attr("x", 75)
+      .attr("y", max_r * 2 + 50)
+      .attr("text-anchor", "middle")
+      .text("Minuten Wartezeit")
+
+    svg.selectAll("g.data")
+      .data(d)
+      .enter()
+      .append("g")
+      .attr("id", function(d) {
+          return "group-" + d[0].week
+      })
+      .attr("class", "data")
+      .on("click", function(d) {
+          select(d[0].week)
+      })
+
+    svg.selectAll("g.data")
+      .selectAll("circle")
+      .data(function(d) { return d })
+      .enter()
+      .append("circle")
+      .attr("cx", function(d) { return d.x })
+      .attr("cy", function(d) { return d.y })
+      .attr("r", function(d) { return d.r })
+      .append("title")
+      .text(function(d) {
+		var dt = getDateOfISOWeek( d.week, d.year);
+		dt.setDate( dt.getDate() + d.weekday);
+		return ""
+		+ d.wait + " Minuten Wartezeit am "
+		+ dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear()
+		+ ' (' + d.week + '. Woche)'
+      })
+
+    d3.select("#control")
+      .selectAll("li")
+      .data(weeks)
+      .enter()
+      .append("li")
+      .attr("id", function(d) { return "control-" + d })
+      .text(function(d) { return "Woche " + d; })
+      .on("click", select)
+
+
+})
+</script>
+
+
+</body>
