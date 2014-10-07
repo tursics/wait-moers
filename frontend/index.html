@@ -4,8 +4,8 @@
 <title>Wann zum Bürgerservice?</title>
 <meta charset="utf-8"/>
 <meta property="og:title" content="Wann zum Bürgerservice?" />
-<meta property="og:url" content="http://wannaufsamt.tentacleriot.eu" />
-<meta property="og:image" content="http://wannaufsamt.tentacleriot.eu/waa.png" />
+<meta property="og:url" content="http://wartezeit.tursics.de" />
+<meta property="og:image" content="http://wartezeit.tursics.de/image.png" />
 <meta property="og:description" content="Wann geht man am besten zum
 Bürgerservice? Mittwoch bis Samstag Vormittag. Die Grafik zeigt die durchschittlichen
 Wartezeiten vom Bürgerservice in Moers nach Wochentagen und Stunden" />
@@ -81,7 +81,7 @@ ul#control {
         <h1>Wann zum Bürgerservice?</h1>
         <div id="graph"></div>
 
-        <h2>Bezirksamt</h2>
+        <h2>Woche</h2>
         <ul id="control"></ul>
 
         <div class="text">
@@ -93,8 +93,8 @@ Mittwoch bis Samstag Vormittag scheinen die besten Zeiten zu sein, zum Bürgerse
 Einzelne Wochen können in der Auswahl unten angewählt werden, die dazugehörigen Wartezeiten erscheinen dann in der Grafik hervorgehoben. 
             </p>
             <p>
-Umsetzung: <a href="http://www.tursics.de/about/">Thomas Tursics</a>
-Umsetzung: <a href="http://tentacleriot.eu/about.html">Michael Bauer</a>
+Umsetzung: <a href="http://tursics.de/about/">Thomas Tursics</a>,
+großen Dank an <a href="http://tentacleriot.eu/about.html">Michael Bauer</a>,
 mit Daten vom <a href="http://www.moers.de/C1256D02002E0B7D/html/414B1FE0CE8DEE59C1256DE800341921?opendocument">Bürgerservice</a> in Moers. 
 (<a href="http://www.moers.de/C1257221003C7526/html/6255084CF2B8082AC1257D33003E3B14?opendocument">Datensatz</a>)
             </p>
@@ -138,7 +138,7 @@ function getDateOfISOWeek(w, y) {
     return ISOweekStart;
 }
 
-d3.json("data.json",
+d3.json("data.php",
     function(d) {
         console.log(d[0]);
 
