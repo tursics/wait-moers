@@ -1,0 +1,63 @@
+body {
+  font-family: open-sans, helvetica, sans;
+  }
+
+div.text {
+  font-family: garamond, serif;
+  }
+g.data {
+  opacity: 0.2;
+  }
+g.data:hover {
+  opacity: 1 }
+
+g.data:hover > circle, g.selected > circle {
+  stroke: #00F;
+  }
+
+
+g > circle  {
+  fill: none;
+  stroke: rgb(255,20,20);
+  stroke-width: 2px;
+  }
+
+g.axis > path{
+  fill: none }
+
+g.tick > line {
+  stroke: #000;
+  stroke-width: 1px;
+  }
+rect.legend {
+  fill: none;
+  stroke: #CCC;
+  stroke-width: 1px;
+  stroke-dasharray: 3,3;
+  }
+
+div.content {
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  }
+
+ul#control > li:hover, ul#control > li.selected {
+  background: #00F;
+  color: white;
+  }
+ul#control > li {
+  display: inline-block;
+  width: 5em;
+  background: rgba(255,20,20,0.2);
+  text-align: center;
+  margin: 2px;
+  padding: 2px;
+  border-radius: 2px;
+  font-size: 90%;
+  }
+
+ul#control {
+  list-style: none;
+  padding: 0px;
+  }
