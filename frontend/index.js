@@ -33,7 +33,7 @@ function getDateOfISOWeek(w, y) {
 
 d3.json("data.php",
     function(d) {
-        console.log(d[0]);
+//        console.log(d[0]);
 
         waits = _.map(d, function(d) {
             return d.wait;
@@ -45,7 +45,7 @@ d3.json("data.php",
             return d.hour;
         });
 
-        console.log(_.uniq(wds));
+ //       console.log(_.uniq(wds));
 
         rscale = d3.scale.sqrt().domain([_.min(waits), _.max(waits)]).range([min_r, max_r]);
         yscale = d3.scale.linear().domain([_.min(wds), _.max(wds)]).range([distance, height - distance]);
@@ -94,35 +94,48 @@ d3.json("data.php",
       .attr("x", 0)
       .attr("y", 0)
       .attr("width", 150)
-      .attr("height", 120)
+      .attr("height", 150)
 
-    legend.append("circle")
+	legend.append("text")
+      .attr("x", 10)
+      .attr("y", 20)
+      .attr("text-anchor", "left")
+      .text("Durchschnittliche")
+
+	legend.append("text")
+      .attr("x", 10)
+      .attr("y", 40)
+      .attr("text-anchor", "left")
+      .text("Wartezeiten")
+
+    legend.append("rect")
+      .attr("class", "legend")
+      .attr("x", 10)
+      .attr("y", 50)
+      .attr("width", 130)
+      .attr("height", 1)
+
+	legend.append("circle")
       .attr("cx", 10 + max_r)
-      .attr("cy", 10 + max_r)
-      .attr("r", max_r)
+      .attr("cy", 60 + max_r)
+      .attr("r", min_r)
 
     legend.append("circle")
       .attr("cx", 110)
-      .attr("cy", 10 + max_r)
-      .attr("r", min_r)
+      .attr("cy", 60 + max_r)
+      .attr("r", max_r)
 
     legend.append("text")
       .attr("x", 10 + max_r)
-      .attr("y", max_r * 2 + 30)
+      .attr("y", 80 + max_r * 2)
       .attr("text-anchor", "middle")
-      .text(_.max(waits))
+      .text(_.min(waits)+" min")
 
     legend.append("text")
       .attr("x", 110)
-      .attr("y", max_r * 2 + 30)
+      .attr("y", 80 + max_r * 2)
       .attr("text-anchor", "middle")
-      .text(_.min(waits))
-
-    legend.append("text")
-      .attr("x", 75)
-      .attr("y", max_r * 2 + 50)
-      .attr("text-anchor", "middle")
-      .text("Minuten Wartezeit")
+      .text(_.max(waits)+" min")
 
     svg.selectAll("g.data")
       .data(d)

@@ -1,6 +1,30 @@
+@import url(http://fonts.googleapis.com/css?family=Oleo+Script);
+
 body {
-  font-family: open-sans, helvetica, sans;
-  }
+	font-family:Oleo Script,open-sans,helvetica,sans;
+}
+
+div.content {
+	background-color:white;
+	margin-left:auto;
+	margin-right:auto;
+	width:1000px;
+}
+
+g > circle  {
+	fill:none;
+	stroke:rgb(200,9,29);
+	stroke-width:2px;
+}
+
+rect.legend {
+	fill:rgb(254,238,93);
+	stroke:rgb(0,0,0);
+	stroke-width:.5px;
+}
+
+
+
 
 div.text {
   font-family: garamond, serif;
@@ -15,31 +39,12 @@ g.data:hover > circle, g.selected > circle {
   stroke: #00F;
   }
 
-
-g > circle  {
-  fill: none;
-  stroke: rgb(255,20,20);
-  stroke-width: 2px;
-  }
-
 g.axis > path{
   fill: none }
 
 g.tick > line {
   stroke: #000;
   stroke-width: 1px;
-  }
-rect.legend {
-  fill: none;
-  stroke: #CCC;
-  stroke-width: 1px;
-  stroke-dasharray: 3,3;
-  }
-
-div.content {
-  width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
   }
 
 ul#control > li:hover, ul#control > li.selected {
@@ -49,7 +54,7 @@ ul#control > li:hover, ul#control > li.selected {
 ul#control > li {
   display: inline-block;
   width: 5em;
-  background: rgba(255,20,20,0.2);
+  background: rgba(200,9,29,0.2);
   text-align: center;
   margin: 2px;
   padding: 2px;
