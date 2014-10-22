@@ -68,7 +68,11 @@ function loggingMoersWaitingJSON( $content)
 	$year = intval( substr( $timestamp, strpos( $timestamp, ' ') - 4, 4));
 	$datetime = mktime( 0, 0, 0, $month, $day, $year);
 
-	$logfile = "../backend/data";
+	$logfile = "../backend";
+	if( !file_exists( $logfile)) {
+		$logfile = "../../wartezeit.tursics.de/backend";
+	}
+	$logfile .= "/data";
 	mkdir( $logfile, 0777);
 	$logfile .= "/".$year.'-json';
 	mkdir( $logfile, 0777);
@@ -92,7 +96,11 @@ function loggingMoersWaitingXML()
 {
 	$err = ini_get( 'error_reporting');
 	ini_set ( 'error_reporting', 0);
-	$logfile = "../backend/data";
+	$logfile = "../backend";
+	if( !file_exists( $logfile)) {
+		$logfile = "../../wartezeit.tursics.de/backend";
+	}
+	$logfile .= "/data";
 	mkdir( $logfile, 0777);
 	$logfile .= "/".date( "Y-m");
 	mkdir( $logfile, 0777);
@@ -124,4 +132,3 @@ function loggingMoersWaitingXML()
 loggingMoersWaitingXML();
 
 ?>
-
