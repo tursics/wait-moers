@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Oleo+Script);
+@import url(http://fonts.googleapis.com/css?family=Pathway+Gothic+One);
 
 div.page {
 	width:1010px;
@@ -10,7 +10,7 @@ div.content {
 
 body {
 	background:#3e3a31 url('bg-dark.png');
-	font-family:Oleo Script,open-sans,helvetica,sans;
+	font-family:'Pathway Gothic One', sans-serif;
 	margin:0;
 	padding:0;
 }
@@ -21,8 +21,7 @@ div.page {
 	-webkit-box-shadow:-3px 4px 0px 0px rgba(0,0,0,0.4);
 	-moz-box-shadow:-3px 4px 0px 0px rgba(0,0,0,0.4);
 	box-shadow:-3px 4px 0px 0px rgba(0,0,0,0.4);
-	margin-left:auto;
-	margin-right:auto;
+	margin:37px auto 0 auto;
 	padding:8px;
 }
 
@@ -40,6 +39,13 @@ div.content {
 	box-shadow:0px 0px 0px 2px #f9eed0;
 	margin:0;
 	padding:0;
+	position:relative;
+}
+
+img.logo {
+	position:absolute;
+	top:-51px;
+	left:388px;
 }
 
 g > circle  {
@@ -53,6 +59,11 @@ rect.legend {
 	stroke:rgb(0,0,0);
 	stroke-width:.5px;
 }
+
+
+
+
+
 
 
 
