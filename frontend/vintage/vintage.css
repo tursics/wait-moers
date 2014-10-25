@@ -48,6 +48,31 @@ img.logo {
 	left:388px;
 }
 
+h1 {
+	background:transparent url('bg-menu.png');
+	color:#ffffff;
+	font-size:30px;
+	line-height:43px;
+	height:71px;
+	margin:74px 0 13px 0;
+	padding:0;
+	text-align:center;
+	text-shadow:2px 2px 0px rgba(0,0,0,0.2);
+	text-transform:uppercase;
+}
+
+h1:before {
+	content:url('bg-menu-left.png');
+	left:-107px;
+	position:absolute;
+}
+
+h1:after {
+	content:url('bg-menu-right.png');
+	position:absolute;
+	right:-106px;
+}
+
 g > circle  {
 	fill:none;
 	stroke:rgb(200,9,29);
