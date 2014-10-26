@@ -22,6 +22,10 @@ function convertWaitDataJSON( $xmlContent)
 	$json = json_encode( $xml);
 	$array = json_decode( $json, TRUE);
 
+	if( !isset($array['eintrag'])) {
+		return '';
+	}
+
 	$timestamp = $array['eintrag'][0]['zeitstempel'];
 	$datastr = '';
 	$count = 0;
