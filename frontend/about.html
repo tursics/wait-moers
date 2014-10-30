@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wann zum Bürgerservice?</title>
+<meta charset="utf-8"/>
+<meta property="og:title" content="Wann zum Bürgerservice?" />
+<meta property="og:url" content="http://wartezeit.tursics.de" />
+<meta property="og:image" content="http://wartezeit.tursics.de/image.png" />
+<meta property="og:description" content="Wann geht man am besten zum Bürgerservice? Mittwoch bis Samstag Vormittag. Die Grafik zeigt die durchschittlichen Wartezeiten vom Bürgerservice in Moers nach Wochentagen und Stunden" />
+<link href="vintage/vintage.css" rel="stylesheet" type="text/css">
+<body>
+	<div class="page">
+		<div class="frame">
+			<div class="content">
+				<img src="vintage/logo.png" alt="Wartezeiten Moers" class="logo">
+
+				<h1>Wie das hier funktioniert</h1>
+				<div class="text">
+Für viele Dienstleistungen der Stadt Moers ist das Einwohnermeldeamt zuständig: für das ummelden des Wohnsitzes, für Ausweise und Reisepässe, für Wohngeldanträge <a href="http://www.moers.de/C1256D02002E0B7D/0/25A2F435AC7C9A25C1256DE8003BBB93?OpenDocument">und für viele weitere Aufgaben</a>. 
+Muss ich als Bürger wegen eines dieser Dinge zum Amt, gehe ich zum Bürgerservice ins <a href="http://www.openstreetmap.org/#map=18/51.45342/6.62632">Rathaus von Moers</a>. 
+Im Warteraum ziehe ich ein Ticket und werde nach einiger Zeit mit der dort aufgedruckten Wartenummer aufgerufen. 
+Im Sprechzimmer kann ich mein Anliegen dem Mitarbeiter vortragen.
+				</div>
+				<div class="text">
+Der Computer im Bürgerservice merkt sich für jedes gezogene Ticket die Wartenummer und die Uhrzeit der Ausgabe:
+<table>
+<tr><th class="left">Ticketnummer</th><th>Wartet seit</th></tr>
+<tr><td class="left">035</td><td>10:30:29 Uhr</td></tr>
+<tr><td class="left">036</td><td>10:32:42 Uhr</td></tr>
+<tr><td class="left">037</td><td>10:32:50 Uhr</td></tr>
+<tr><td class="left">038</td><td>10:35:06 Uhr</td></tr>
+<tr><td class="left">039</td><td>10:37:07 Uhr</td></tr>
+</table>
+				</div>
+				<div class="text">
+Sobald ein Sprechzimmer freigeworden ist und das nächste Ticket aufgerufen wird, wird das dem Computer mitgeteilt. 
+Dieser errechnet aus seinen Daten die noch wartenden Tickets, also die noch im Warteraum wartenden Personen, sowie die aktuelle durchschnittliche Wartezeit. 
+<table>
+<tr><td class="left">Wartende Tickets</td><td>6</td></tr>
+<tr><td class="left">Durchschnittliche Wartezeit</td><td>17 Minuten</td></tr>
+</table>
+				</div>
+				<div class="text">
+Das Ergebnis wird an drei Stellen im Internet veröffentlicht: 
+einmal <a href="http://download.moers.de/Wartezeiten/Wartezeiten_ohne_Design.html">als reiner Text</a>, 
+hübsch aufbereitet <a href="http://m.moers.de/C1257BB100442605/html/CC6C824E3E5A86D8C1257D1800454358?OpenDocument&nocache=1">für mobile Geräte</a> 
+und als <a href="http://www.moers.de/C1257221003C7526/html/90E8175D19D7AE12C1257D0100298BAA?OpenDocument&nocache=1">Info-Kästchen</a> auf der Webseite. 
+				</div>
+				<div class="text">
+Für Software-Entwickler hat sich die Stadt Moers einen ganz besonderen Service einfallen lassen. 
+Sie veröffentlicht die Daten zu den Wartezeiten nicht nur auf ihrer Webseite sondern auch in einer speziellen Form. 
+Die Daten werden als <a href="http://www.moers.de/www/webio.nsf/generateViewFromTemplate?OpenAgent&layout=Wartezeiten&nocache=1">maschinenlesbare XML-Datei</a> als live-Daten alle 6 bis 7 Minuten aktualisiert. 
+Jeder darf die Daten verwenden, wofür er sie auch möchte, ohne Einschränkungen oder Bedingungen. 
+Dazu sind die Daten unter die <a href="https://www.govdata.de/dl-de/zero-2-0">Datenlizenz Deutschland – Zero – Version 2.0</a> gestellt worden.
+				</div>
+				<div class="text">
+Im <a href="http://offenedaten.moers.de">Open Data Portal von Moers</a> gibt es eine Beschreibungsseite für die <a href="http://www.moers.de/C1257221003C7526/html/6255084CF2B8082AC1257D33003E3B14?opendocument">Wartezeiten im Bürgerservice</a>. 
+Dort ist die XML-Struktur ausführlich dokumentiert. Ein Eintrag sieht folgendermaßen aus:
+<pre><code>&lt;eintrag&gt;
+  &lt;personenzahl&gt;6&lt;/personenzahl&gt;
+  &lt;ticketnummer&gt;035&lt;/ticketnummer&gt;
+  &lt;wartezeit&gt;17&lt;/wartezeit&gt;
+  &lt;zeitstempel&gt;30.10.2014 10:44:22&lt;/zeitstempel&gt;
+&lt;/eintrag&gt;
+</code></pre>
+				</div>
+				<div class="text">
+Diese XML-Datei ist die Basis für dieses Projekt. 
+Wer möchte kann sich den <a href="https://github.com/tursics/wait-moers">Quelltext auf github</a> anschauen. 
+Da die Daten in der XML-Datei jeden Morgen gelöscht werden gibt es ein PHP-Skript, das jeden Abend ein Backup von der Datei anlegt. 
+Dieses Backup wird auch gleich nach JSON konvertiert da diese Struktur später besser angezeigt werden kann. 
+Für jede Woche wird eine neue JSON-Datei angelegt.
+				</div>
+				<div class="text">
+<a href="http://tentacleriot.eu/about.html">Michael Bauer</a> hat die Web-App <a href="http://wannaufsamt.tentacleriot.eu/">Wann aufs Meldeamt?</a> mit den, ebenfalls als Open Data veröffentlichten, Wartezeiten der magistratischen Bezirksämtern der Stadt Wien erstellt. 
+Er hat die Wartezeiten nach JSON konvertiert und mit Hilfe von <a href="http://d3js.org">D3.js</a> dargestellt. 
+Nach ein paar kleinen Anpassungen im Quelltext und der Datenlogik konnte ich die Moerser Wartezeiten nach dem gleichen Schema anzeigen.
+				</div>
+				<div class="text">
+Angezeigt werden die vorher per PHP erzeugten Wochen-JSON-Dateien. 
+Zusätzlich wird immer die aktuelle XML-Datei der Moerser Wartezeiten geholt, nach JSON konvertiert und ebenfalls angezeigt. 
+Mit diesen Daten kann ich sowohl die aktuellen Wartezeiten als auch die der letzten Tage und Wochen anzeigen. 
+Ebenfalls kann ich die Ticketnummer anzeigen, die als nächstes aufgerufen werden wird.
+				</div>
+				<div class="text">
+Was dann noch fehlte war ein bisschen Farbe auf der Webseite. 
+Das <a href="http://www.pixeden.com/psd-web-elements/retro-web-ribbons-vintage-psd-pack">Vintage Template</a> diente Vorlage für das endgültige Layout. 
+				</div>
+				<div class="text">
+Eh voilà, die Seite ist fertig: 
+<a href="http://wartezeit.tursics.de">Wartezeiten Moers</a>
+				</div>
+
+
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+</body>
