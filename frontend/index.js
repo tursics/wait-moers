@@ -35,6 +35,17 @@ d3.json("data.php",
     function(d) {
 //        console.log(d[0]);
 
+		if(( d.length > 1) && (typeof d[d.length-1].lastwait !== "undefined")) {
+			lastwait = d[d.length-1].lastwait;
+			lastnumber = d[d.length-1].lastnumber;
+			d.pop();
+			document.getElementById( "number").innerHTML = "Ticket " + lastnumber;
+			document.getElementById( "minutes").innerHTML = "ca. " + lastwait + " Minuten";
+		} else {
+			document.getElementById( "number").innerHTML = 'Zur Zeit';
+			document.getElementById( "minutes").innerHTML = 'geschlossen';
+		}
+
         waits = _.map(d, function(d) {
             return d.wait;
         });
@@ -45,7 +56,7 @@ d3.json("data.php",
             return d.hour;
         });
 
- //       console.log(_.uniq(wds));
+//       console.log(_.uniq(wds));
 
         rscale = d3.scale.sqrt().domain([_.min(waits), _.max(waits)]).range([min_r, max_r]);
         yscale = d3.scale.linear().domain([_.min(wds), _.max(wds)]).range([distance, height - distance]);
@@ -113,7 +124,7 @@ d3.json("data.php",
       .attr("x", 10)
       .attr("y", 50)
       .attr("width", 130)
-      .attr("height", 1)
+      .attr("height", 0.5)
 
 	legend.append("circle")
       .attr("cx", 10 + max_r)

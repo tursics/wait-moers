@@ -38,7 +38,7 @@ div.content {
 	-moz-box-shadow:0px 0px 0px 2px #f9eed0;
 	box-shadow:0px 0px 0px 2px #f9eed0;
 	margin:0;
-	padding:0;
+	padding:45px 0 0 0;
 	position:relative;
 }
 
@@ -54,7 +54,7 @@ h1 {
 	font-size:30px;
 	line-height:43px;
 	height:71px;
-	margin:74px 0 13px 0;
+	margin:28px 0 13px 0;
 	padding:0;
 	text-align:center;
 	text-shadow:2px 2px 0px rgba(0,0,0,0.2);
@@ -71,6 +71,69 @@ h1:after {
 	content:url('bg-menu-right.png');
 	position:absolute;
 	right:-106px;
+}
+
+div.text {
+	font-size:1.1em;
+	margin:0 1em 1em 1em;
+}
+
+table, pre {
+	background:#f9eed0 url('bg-box.png');
+	border:1px solid #ffffff;
+	-webkit-box-shadow:0px 0px 0px 1px #d7cfa1;
+	-moz-box-shadow:0px 0px 0px 1px #d7cfa1;
+	box-shadow:0px 0px 0px 1px #d7cfa1;
+	border-spacing:0;
+	margin:.5em 1em 1em 1em;
+	padding:2px;
+}
+
+table th {
+	border-bottom:1px solid #d7cfa1;
+	font-weight:400;
+}
+
+table th, table td, pre {
+	padding:.25em .75em .25em .75em;
+}
+
+table td.left, table th.left {
+	border-right:1px solid #d7cfa1;
+}
+
+div.text a {
+	color:#7d9466;
+}
+
+div#ticket {
+	background:url('bg-ticket.png');
+	height:100px;
+	margin:0 auto 0 auto;
+	width:210px;
+}
+
+div#number {
+	color:rgba(127,77,50,.8);
+	font-size:27px;
+	line-height:33px;
+	margin:0;
+	min-height:33px;
+	padding:13px 0 0 0;
+	text-align:center;
+}
+
+div#minutes {
+	color:rgba(127,77,50,.8);
+	font-size:18px;
+	line-height:39px;
+	margin:0;
+	padding:2px 0 0 0;
+	text-align:center;
+}
+
+div#graph {
+	margin:28px 0 0 0;
 }
 
 g > circle  {
@@ -93,9 +156,6 @@ rect.legend {
 
 
 
-div.text {
-  font-family: garamond, serif;
-  }
 g.data {
   opacity: 0.2;
   }
