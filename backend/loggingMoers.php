@@ -9,7 +9,45 @@ function getCurrentWaitDataXML()
 
 function getCurrentWaitDataJSON( $xmlContent)
 {
-	return convertWaitDataJSON( getCurrentWaitDataXML());
+	$data = getCurrentWaitDataXML();
+
+	return convertWaitDataJSON( $data) . convertWaitTicketJSON( $data);
+}
+
+function convertWaitTicketJSON( $xmlContent)
+{
+	if( '' == $xmlContent) {
+		return '';
+	}
+
+	$xml = simplexml_load_string( $xmlContent);
+	$json = json_encode( $xml);
+	$array = json_decode( $json, TRUE);
+
+	if( !isset($array['eintrag'])) {
+		return '';
+	}
+
+	foreach( $array['eintrag'] as $value) {
+		$wait = intval( $value['wartezeit']);
+		$number = intval( $value['ticketnummer']);
+		$timestamp = $value['zeitstempel'];
+		if( $number > 0) {
+			$h = intval( substr( $timestamp, strpos( $timestamp, ' ') + 1, 2));
+
+			$day = intval( substr( $timestamp, 0, 2));
+			$month = intval( substr( $timestamp, strpos( $timestamp, '.') + 1, 2));
+			$year = intval( substr( $timestamp, strpos( $timestamp, ' ') - 4, 4));
+			$datetime = mktime( $h, 0, 0, $month, $day, $year);
+			$diffMin = (mktime() - $datetime) / 60;
+
+			if( $diffMin < 60) {
+				return '{"lastwait": ' . $wait . ', "lastnumber": ' . $number . '},';
+			}
+		}
+	}
+
+	return '';
 }
 
 function convertWaitDataJSON( $xmlContent)
