@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Pathway+Gothic+One);
+@import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
 
 div.page {
 	width:1010px;
@@ -10,7 +10,7 @@ div.content {
 
 body {
 	background:#3e3a31 url('bg-dark.png');
-	font-family:'Pathway Gothic One', sans-serif;
+	font-family:'Yanone Kaffeesatz', sans-serif;
 	margin:0;
 	padding:0;
 }
