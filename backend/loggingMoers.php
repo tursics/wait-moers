@@ -41,7 +41,7 @@ function convertWaitTicketJSON( $xmlContent)
 			$datetime = mktime( $h, 0, 0, $month, $day, $year);
 			$diffMin = (mktime() - $datetime) / 60;
 
-			if( $diffMin < 60) {
+			if( $diffMin < 100) {
 				return '{"lastwait": ' . $wait . ', "lastnumber": ' . $number . '},';
 			}
 		}
