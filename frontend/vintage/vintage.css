@@ -111,8 +111,10 @@ div#ticket {
 	background-size:210px 105px;
 	background-repeat:no-repeat;
 	height:105px;
+	overflow:hidden;
 	position:relative;
 	margin:0 auto 0 auto;
+	white-space:nowrap;
 	width:210px;
 }
 
