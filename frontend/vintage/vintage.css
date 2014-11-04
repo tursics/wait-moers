@@ -108,27 +108,60 @@ div.text a {
 
 div#ticket {
 	background:url('bg-ticket.png');
-	height:100px;
+	background-size:210px 105px;
+	background-repeat:no-repeat;
+	height:105px;
+	position:relative;
 	margin:0 auto 0 auto;
 	width:210px;
 }
 
-div#number {
-	color:rgba(127,77,50,.8);
-	font-size:27px;
-	line-height:33px;
+div#city, div#entity {
+	color:rgba(95,56,12,.4);
+	font-size:14px;
+	line-height:20px;
 	margin:0;
-	min-height:33px;
-	padding:13px 0 0 0;
+	min-height:20px;
+	position:absolute;
+	text-align:center;
+	top:44px;
+	width:71px;
+}
+
+div#city {
+	left:149px;
+	-webkit-transform:rotate(90deg);
+	-moz-transform:rotate(90deg);
+	-ms-transform:rotate(90deg);
+	-o-transform:rotate(90deg);
+	transform:rotate(90deg);
+}
+
+div#entity {
+	left:-10px;
+	-webkit-transform:rotate(270deg);
+	-moz-transform:rotate(270deg);
+	-ms-transform:rotate(270deg);
+	-o-transform:rotate(270deg);
+	transform:rotate(270deg);
+}
+
+div#number {
+	color:rgba(95,56,12,1);
+	font-size:60px;
+	line-height:50px;
+	margin:0;
+	min-height:23px;
+	padding:14px 0 0 0;
 	text-align:center;
 }
 
 div#minutes {
-	color:rgba(127,77,50,.8);
-	font-size:18px;
-	line-height:39px;
+	color:rgba(95,56,12,.8);
+	font-size:14px;
+	line-height:20px;
 	margin:0;
-	padding:2px 0 0 0;
+	padding:5px 0 0 0;
 	text-align:center;
 }
 
