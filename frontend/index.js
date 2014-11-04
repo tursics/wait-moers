@@ -39,11 +39,10 @@ d3.json("data.php",
 			lastwait = d[d.length-1].lastwait;
 			lastnumber = d[d.length-1].lastnumber;
 			d.pop();
-			document.getElementById( "number").innerHTML = "Ticket " + lastnumber;
-			document.getElementById( "minutes").innerHTML = "ca. " + lastwait + " Minuten";
+			document.getElementById( "number").innerHTML = lastnumber;
+			document.getElementById( "minutes").innerHTML = "ca. " + lastwait + " Minuten Wartezeit";
 		} else {
-			document.getElementById( "number").innerHTML = 'Zur Zeit';
-			document.getElementById( "minutes").innerHTML = 'geschlossen';
+			document.getElementById( "minutes").innerHTML = 'Zur Zeit geschlossen';
 		}
 
         waits = _.map(d, function(d) {
@@ -89,7 +88,7 @@ d3.json("data.php",
 
     svg.append("g")
       .attr("class", "axis")
-      .attr("transform", "translate(" + [0, height - 20] + ")")
+      .attr("transform", "translate(" + [0, height - 22] + ")")
       .call(xaxis)
 
     svg.append("g")
