@@ -4,6 +4,7 @@ var height = 500;
 var min_r = 2;
 var max_r = 30;
 var distance = 50;
+var timeframe = 15;
 
 var svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
 
@@ -42,7 +43,7 @@ d3.json("data.php",
 			document.getElementById( "number").innerHTML = lastnumber;
 			document.getElementById( "minutes").innerHTML = "ca. " + lastwait + " Minuten Wartezeit";
 		} else {
-			document.getElementById( "minutes").innerHTML = 'Zur Zeit geschlossen';
+			document.getElementById( "minutes").innerHTML = 'Zurzeit geschlossen';
 		}
 
         waits = _.map(d, function(d) {
@@ -167,6 +168,7 @@ d3.json("data.php",
       .attr("cx", function(d) { return d.x })
       .attr("cy", function(d) { return d.y })
       .attr("r", function(d) { return d.r })
+      .attr("class", function(d) { return d.wait <= timeframe ? "quick" : "slow" })
       .append("title")
       .text(function(d) {
 		var dt = getDateOfISOWeek( d.week, d.year);
