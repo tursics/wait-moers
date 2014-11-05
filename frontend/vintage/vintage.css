@@ -73,7 +73,7 @@ h1:after {
 	right:-106px;
 }
 
-div.text {
+div.text, ul#control {
 	font-size:1.1em;
 	margin:0 1em 1em 1em;
 }
@@ -168,13 +168,37 @@ div#minutes {
 }
 
 div#graph {
-	margin:28px 0 0 0;
+	background:rgba(255,255,255,.3);
+	border-bottom:1px solid #d7cfa1;
+	border-top:1px solid #d7cfa1;
+	margin:28px 0 28px 0;
 }
 
 g > circle  {
 	fill:none;
-	stroke:rgb(200,9,29);
+	stroke:#ad4f4b;
 	stroke-width:2px;
+}
+
+g.data:hover > circle, g.selected > circle {
+	fill:rgba(255,255,255,.3);
+	stroke:#803b38;
+}
+
+g > circle.quick  {
+	stroke:#546541;
+}
+
+g.data:hover > circle.quick, g.selected > circle.quick {
+	stroke:#2a3220;
+}
+
+g.data {
+	opacity:0.3;
+}
+
+g.data:hover {
+	opacity:1;
 }
 
 rect.legend {
@@ -189,17 +213,6 @@ rect.legend {
 
 
 
-
-
-g.data {
-  opacity: 0.2;
-  }
-g.data:hover {
-  opacity: 1 }
-
-g.data:hover > circle, g.selected > circle {
-  stroke: #00F;
-  }
 
 g.axis > path{
   fill: none }
