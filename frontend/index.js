@@ -1,4 +1,4 @@
-var days = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
+var days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
 var width = 1000;
 var height = 500;
 var min_r = 2;
@@ -6,9 +6,9 @@ var max_r = 30;
 var distance = 50;
 var timeframe = 15;
 
-var svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height);
+var svg = d3.select("#graph").append("svg").attr("width", width).attr("height", height + 25);
 
-function select( d )
+function select( d)
 {
     if( d3.select( "#control-" + d ).attr( "class" ) == "selected" ) {
         d3.select( "#control-" + d ).attr( "class", "" );
@@ -21,7 +21,8 @@ function select( d )
     }
 }
 
-function getDateOfISOWeek(w, y) {
+function getDateOfISOWeek( w, y)
+{
     var simple = new Date(y, 0, 1 + (w - 1) * 7);
     var dow = simple.getDay();
     var ISOweekStart = simple;
@@ -30,6 +31,25 @@ function getDateOfISOWeek(w, y) {
     else
         ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
     return ISOweekStart;
+}
+
+function getWeekStr( w)
+{
+	if( weeks.length > 0) {
+		var diff = weeks[ weeks.length - 1] - w;
+
+		if( 0 == diff) {
+			return "diese Woche";
+		} else if( 1 == diff) {
+			return "letzte Woche";
+		} else if( 2 == diff) {
+			return "vorletzte Woche";
+		}
+
+		return "vor " + diff + " Wochen";
+	}
+
+	return w + ". Woche";
 }
 
 d3.json("data.php",
@@ -62,9 +82,6 @@ d3.json("data.php",
         yscale = d3.scale.linear().domain([_.min(wds), _.max(wds)]).range([distance, height - distance]);
         xscale = d3.scale.linear().domain([_.min(hrs), _.max(hrs)]).range([distance, width - distance]);
 
-        xaxis = d3.svg.axis().scale(xscale).orient("bottom").ticks(11).tickValues([8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]);
-        yaxis = d3.svg.axis().scale(yscale).orient("left").ticks(6).tickValues([0, 1, 2, 3, 4, 5]).tickFormat(function(d) { return days[d] });
-
         d = _.map(d, function(d) {
             d.r = rscale(d.wait);
             d.x = xscale(d.hour);
@@ -87,64 +104,60 @@ d3.json("data.php",
         return d[0].week;
     });
 
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(" + [0, height - 22] + ")")
-      .call(xaxis)
-
-    svg.append("g")
-      .attr("class", "axis")
-      .attr("transform", "translate(" + [30, 0] + ")")
-      .call(yaxis)
-
     legend = svg.append("g")
-      .attr("transform", "translate(" + [width - distance - 150, 15] + ")")
+      .attr("transform", "translate(" + [width - 275, height - 100] + ")")
 
     legend.append("rect")
       .attr("class", "legend")
       .attr("x", 0)
       .attr("y", 0)
-      .attr("width", 150)
-      .attr("height", 150)
+      .attr("width", 250)
+      .attr("height", 100)
 
 	legend.append("text")
       .attr("x", 10)
-      .attr("y", 20)
+      .attr("y", 33)
       .attr("text-anchor", "left")
       .text("Durchschnittliche")
 
 	legend.append("text")
       .attr("x", 10)
-      .attr("y", 40)
+      .attr("y", 56)
       .attr("text-anchor", "left")
-      .text("Wartezeiten")
+      .text("Wartezeiten im")
+
+	legend.append("text")
+      .attr("x", 10)
+      .attr("y", 79)
+      .attr("text-anchor", "left")
+      .text("Bürgerservice")
 
     legend.append("rect")
       .attr("class", "legend")
-      .attr("x", 10)
-      .attr("y", 50)
-      .attr("width", 130)
-      .attr("height", 0.5)
+      .attr("x", 110)
+      .attr("y", 15)
+      .attr("width", 0.5)
+      .attr("height", 70)
 
 	legend.append("circle")
-      .attr("cx", 10 + max_r)
-      .attr("cy", 60 + max_r)
+      .attr("cx", 110 + max_r)
+      .attr("cy", 10 + max_r)
       .attr("r", min_r)
 
     legend.append("circle")
-      .attr("cx", 110)
-      .attr("cy", 60 + max_r)
+      .attr("cx", 210)
+      .attr("cy", 10 + max_r)
       .attr("r", max_r)
 
     legend.append("text")
-      .attr("x", 10 + max_r)
-      .attr("y", 80 + max_r * 2)
+      .attr("x", 110 + max_r)
+      .attr("y", 30 + max_r * 2)
       .attr("text-anchor", "middle")
       .text(_.min(waits)+" min")
 
     legend.append("text")
-      .attr("x", 110)
-      .attr("y", 80 + max_r * 2)
+      .attr("x", 210)
+      .attr("y", 30 + max_r * 2)
       .attr("text-anchor", "middle")
       .text(_.max(waits)+" min")
 
@@ -166,7 +179,7 @@ d3.json("data.php",
       .enter()
       .append("circle")
       .attr("cx", function(d) { return d.x })
-      .attr("cy", function(d) { return d.y })
+      .attr("cy", function(d) { return 35 + d.y })
       .attr("r", function(d) { return d.r })
       .attr("class", function(d) { return d.wait <= timeframe ? "quick" : "slow" })
       .append("title")
@@ -174,9 +187,9 @@ d3.json("data.php",
 		var dt = getDateOfISOWeek( d.week, d.year);
 		dt.setDate( dt.getDate() + d.weekday);
 		return ""
-		+ d.wait + " Minuten Wartezeit am "
-		+ dt.getDate() + '.' + (dt.getMonth() + 1) + '.' + dt.getFullYear()
-		+ ' (' + d.week + '. Woche)'
+		+ d.wait + " Minuten Wartezeit\n"
+		+ days[ d.weekday] + " " + getWeekStr( d.week) + "\n"
+//		+ "(" + dt.getDate() + "." + (dt.getMonth() + 1) + "." + dt.getFullYear() + ")"
       })
 
     d3.select("#control")
@@ -185,7 +198,7 @@ d3.json("data.php",
       .enter()
       .append("li")
       .attr("id", function(d) { return "control-" + d })
-      .text(function(d) { return "Woche " + d; })
+      .text(function(d) { return getWeekStr( d); })
       .on("click", select)
 
 

@@ -73,12 +73,12 @@ h1:after {
 	right:-106px;
 }
 
-div.text, ul#control {
+div.text, ul#control, svg text, div.box {
 	font-size:1.1em;
 	margin:0 1em 1em 1em;
 }
 
-table, pre {
+table, pre, div.box {
 	background:#f9eed0 url('bg-box.png');
 	border:1px solid #ffffff;
 	-webkit-box-shadow:0px 0px 0px 1px #d7cfa1;
@@ -102,8 +102,48 @@ table td.left, table th.left {
 	border-right:1px solid #d7cfa1;
 }
 
-div.text a {
+div.text a, div.box a {
 	color:#7d9466;
+}
+
+a.button, ul#control > li {
+	background:transparent url('bg-buttonyellow.png') repeat-x;
+	color:#ffffff !important;
+	font-size:18px;
+	line-height:24px;
+	height:28px;
+	margin:0 2px 0 2px;
+	padding:2px 0 2px 0;
+	position:relative;
+	text-align:center;
+	text-decoration:none;
+	text-shadow:2px 2px 0px rgba(0,0,0,0.2);
+}
+
+a.button:before, ul#control > li:before {
+	content:url('bg-buttonyellow-left.png');
+	left:-2px;
+	position:absolute;
+	top:0;
+}
+
+a.button:after, ul#control > li:after {
+	content:url('bg-buttonyellow-right.png');
+	position:absolute;
+	right:-2px;
+	top:0;
+}
+
+a.button:hover, ul#control > li:hover, ul#control > li.selected {
+	background:transparent url('bg-buttongreen.png') repeat-x;
+}
+
+a.button:hover:before, ul#control > li:hover:before, ul#control > li.selected:before {
+	content:url('bg-buttongreen-left.png');
+}
+
+a.button:hover:after, ul#control > li:hover:after, ul#control > li.selected:after {
+	content:url('bg-buttongreen-right.png');
 }
 
 div#ticket {
@@ -171,7 +211,57 @@ div#graph {
 	background:rgba(255,255,255,.3);
 	border-bottom:1px solid #d7cfa1;
 	border-top:1px solid #d7cfa1;
-	margin:28px 0 28px 0;
+	margin:28px 0 10px 0;
+}
+
+div.graphic {
+	position:relative;
+	margin:38px 0 0 0;
+}
+
+div.leftflag {
+	background:transparent url('bg-leftflag.png') no-repeat;
+	color:#ffffff;
+	left:0;
+	line-height:35px;
+	height:35px;
+	margin:0 0 5px -14px;
+	padding:0 0 0 10px;
+	position:absolute;
+	text-align:left;
+	text-shadow:2px 2px 0px rgba(0,0,0,0.2);
+	text-transform:uppercase;
+	width:45px;
+	z-index:10;
+}
+
+div.leftflag:before {
+	content:url('bg-leftflag-left.png');
+	left:-10px;
+	position:absolute;
+}
+
+div.topflag {
+	background:transparent url('bg-topflag.png') no-repeat;
+	color:#ffffff;
+	line-height:15px;
+	height:49px;
+	margin:0;
+	padding:0 0 0 4px;
+	position:absolute;
+	text-align:center;
+	text-shadow:2px 2px 0px rgba(0,0,0,0.2);
+/*	text-transform:uppercase;*/
+	width:71px;
+	top:0;
+	z-index:10;
+}
+
+div.topflag:before {
+	content:url('bg-topflag-top.png');
+	left:0;
+	position:absolute;
+	top:-13px;
 }
 
 g > circle  {
@@ -181,8 +271,8 @@ g > circle  {
 }
 
 g.data:hover > circle, g.selected > circle {
-	fill:rgba(255,255,255,.3);
-	stroke:#803b38;
+/*	stroke:#803b38;*/
+	stroke:#344cb5;
 }
 
 g > circle.quick  {
@@ -190,11 +280,12 @@ g > circle.quick  {
 }
 
 g.data:hover > circle.quick, g.selected > circle.quick {
-	stroke:#2a3220;
+/*	stroke:#2a3220;*/
+	stroke:#344cb5;
 }
 
 g.data {
-	opacity:0.3;
+	opacity:0.25;
 }
 
 g.data:hover {
@@ -202,42 +293,30 @@ g.data:hover {
 }
 
 rect.legend {
-	fill:rgb(254,238,93);
-	stroke:rgb(0,0,0);
-	stroke-width:.5px;
+	fill:#f9eed0;
+	stroke:#d7cfa1;
+	stroke-width:1px;
 }
 
-
-
-
-
-
-
-
-g.axis > path{
-  fill: none }
-
-g.tick > line {
-  stroke: #000;
-  stroke-width: 1px;
-  }
-
-ul#control > li:hover, ul#control > li.selected {
-  background: #00F;
-  color: white;
-  }
 ul#control > li {
-  display: inline-block;
-  width: 5em;
-  background: rgba(200,9,29,0.2);
-  text-align: center;
-  margin: 2px;
-  padding: 2px;
-  border-radius: 2px;
-  font-size: 90%;
-  }
+	display:inline-block;
+	width:5.5em;
+	margin:0 5px 0 5px;
+}
 
 ul#control {
-  list-style: none;
-  padding: 0px;
-  }
+	height:2em;
+	list-style:none;
+	padding:0px;
+}
+
+div.box {
+	margin:3em 1em 1em 1em;
+	padding:1em;
+	text-align:center;
+}
+
+div.box img {
+	padding:0 .5em 0 .5em;
+	vertical-align:middle;
+}
