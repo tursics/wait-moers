@@ -32,16 +32,20 @@ function convertWaitTicketJSON( $xmlContent)
 		$wait = intval( $value['wartezeit']);
 		$number = intval( $value['ticketnummer']);
 		$timestamp = $value['zeitstempel'];
-		if( $number > 0) {
-			$h = intval( substr( $timestamp, strpos( $timestamp, ' ') + 1, 2));
+		$h = intval( substr( $timestamp, strpos( $timestamp, ' ') + 1, 2));
 
-			$day = intval( substr( $timestamp, 0, 2));
-			$month = intval( substr( $timestamp, strpos( $timestamp, '.') + 1, 2));
-			$year = intval( substr( $timestamp, strpos( $timestamp, ' ') - 4, 4));
-			$datetime = mktime( $h, 0, 0, $month, $day, $year);
-			$diffMin = (mktime() - $datetime) / 60;
+		$day = intval( substr( $timestamp, 0, 2));
+		$month = intval( substr( $timestamp, strpos( $timestamp, '.') + 1, 2));
+		$year = intval( substr( $timestamp, strpos( $timestamp, ' ') - 4, 4));
+		$datetime = mktime( $h, 0, 0, $month, $day, $year);
+		$diffMin = (mktime() - $datetime) / 60;
 
-			if( $diffMin < 100) {
+		if( 0 == $year) {
+			return '{"lastwait": ' . 2 . ', "lastnumber": ' . 1 . '},';
+		}
+
+		if( $diffMin < 100) {
+			if( $number > 0) {
 				return '{"lastwait": ' . $wait . ', "lastnumber": ' . $number . '},';
 			}
 		}
@@ -58,7 +62,7 @@ function convertWaitDataJSON( $xmlContent)
 
 	$xml = simplexml_load_string( $xmlContent);
 	$json = json_encode( $xml);
-	$array = json_decode( $json, TRUE);
+	$array = json_decode( $json, true);
 
 	if( !isset($array['eintrag'])) {
 		return '';
@@ -75,6 +79,10 @@ function convertWaitDataJSON( $xmlContent)
 	$year = intval( substr( $timestamp, strpos( $timestamp, ' ') - 4, 4));
 	$datetime = mktime( 0, 0, 0, $month, $day, $year);
 	$average = 0;
+
+	if( 0 == $year) {
+		return '';
+	}
 
 	foreach( $array['eintrag'] as $value) {
 		$wait = intval( $value['wartezeit']);
