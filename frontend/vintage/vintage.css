@@ -302,6 +302,7 @@ ul#control > li {
 	display:inline-block;
 	width:5.5em;
 	margin:0 5px 0 5px;
+	cursor:pointer;
 }
 
 ul#control {
