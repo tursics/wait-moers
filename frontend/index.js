@@ -54,7 +54,12 @@ function getWeekStr( w)
 
 d3.json("data.php",
     function(d) {
-//        console.log(d[0]);
+		if( null == d) {
+			document.getElementById( "number").innerHTML = 'Fehler';
+			document.getElementById( "minutes").innerHTML = 'Es ist ein Fehler aufgetreten';
+			return;
+		}
+//		console.log(d);
 
 		if(( d.length > 1) && (typeof d[d.length-1].lastwait !== "undefined")) {
 			lastwait = d[d.length-1].lastwait;
