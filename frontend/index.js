@@ -36,7 +36,18 @@ function getDateOfISOWeek( w, y)
 function getWeekStr( w)
 {
 	if( weeks.length > 0) {
-		var diff = weeks[ weeks.length - 1] - w;
+		var currentWeek = weeks[0];
+		for( var i = 1; i < weeks.length; ++i) {
+			if(( currentWeek + 1) != weeks[ i]) {
+				break;
+			}
+			++currentWeek;
+		}
+		var diff = currentWeek - w;
+
+		if( diff < 0) {
+			diff += weeks[ weeks.length - 1] - weeks[ 0] + 1;
+		}
 
 		if( 0 == diff) {
 			return "diese Woche";
@@ -199,7 +210,17 @@ d3.json("data.php",
 
     d3.select("#control")
       .selectAll("li")
-      .data(weeks)
+//      .data(weeks)
+      .data(function(){
+		var ret = weeks.slice();
+		ret.sort( function(a,b){
+			if(( a-b) < -30) {
+				return 1;
+			}
+			return a-b;
+		});
+		return ret;
+	  })
       .enter()
       .append("li")
       .attr("id", function(d) { return "control-" + d })
