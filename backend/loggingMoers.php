@@ -92,7 +92,7 @@ function convertWaitDataJSON( $xmlContent)
 		if( $h != $hour) {
 			if( $count > 1) {
 				$average = round( $min / $count);
-				$datastr .= '{"wait": ' . $average . ', "hour": ' . $h . ', "year": ' . $year . ', "week": ' . date( 'W', $datetime) . ', "weekday": ' . (date( 'N', $datetime) - 1) . '},';
+				$datastr .= '{"wait": ' . $average . ', "hour": ' . $h . ', "year": ' . $year . ', "week": ' . (1*date( 'W', $datetime)) . ', "weekday": ' . (date( 'N', $datetime) - 1) . '},';
 			}
 			$h = $hour;
 			$count = 0;
@@ -104,7 +104,7 @@ function convertWaitDataJSON( $xmlContent)
 
 	if( $count > 1) {
 		$average = round( $min / $count);
-		$datastr .= '{"wait": ' . $average . ', "hour": ' . $h . ', "year": ' . $year . ', "week": ' . date( 'W', $datetime) . ', "weekday": ' . (date( 'N', $datetime) - 1) . '},' . "\n"	;
+		$datastr .= '{"wait": ' . $average . ', "hour": ' . $h . ', "year": ' . $year . ', "week": ' . (1*date( 'W', $datetime)) . ', "weekday": ' . (date( 'N', $datetime) - 1) . '},' . "\n"	;
 	}
 
 	return $datastr;
