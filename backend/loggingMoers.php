@@ -7,7 +7,7 @@ function getCurrentWaitDataXML()
 	return file_get_contents( $dataURL);
 }
 
-function getCurrentWaitDataJSON( $xmlContent)
+function getCurrentWaitDataJSON()
 {
 	$data = getCurrentWaitDataXML();
 
