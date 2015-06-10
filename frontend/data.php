@@ -1,6 +1,7 @@
 <?php
 
 include_once '../backend/loggingMoers.php';
+include_once '../backend/loggingMoersAppointments.php';
 
 function getWeekData( $week, $year)
 {
@@ -31,7 +32,15 @@ for( $i = 0; $i < 8; ++$i, $date -= 7 * 24 * 60 * 60) {
 	$ret .= getWeekData( $week, $year);
 }
 
-$ret .= getCurrentWaitDataJSON();
+$current = getCurrentWaitDataJSON();
+if( '' == $current) {
+	$current = getCurrentAppointmentDataJSON();
+} else {
+	$current = rtrim( $current, "}\n,");
+	$current .= ', ' . substr( getCurrentAppointmentDataJSON(), 1);
+}
+
+$ret .= $current;
 $ret = rtrim( $ret, "\n,");
 
 echo '[' . $ret . ']';

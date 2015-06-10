@@ -1,4 +1,5 @@
 var days = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+var months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 var width = 1000;
 var height = 500;
 var min_r = 2;
@@ -68,18 +69,41 @@ d3.json("data.php",
 		if( null == d) {
 			document.getElementById( "number").innerHTML = 'Fehler';
 			document.getElementById( "minutes").innerHTML = 'Es ist ein Fehler aufgetreten';
+			document.getElementById( "day").innerHTML = '#';
+			document.getElementById( "month").innerHTML = 'Oh oh';
+			document.getElementById( "weekday").innerHTML = 'Sorry';
+			document.getElementById( "info").innerHTML = 'Es ist ein<br>Fehler aufgetreten';
 			return;
 		}
 //		console.log(d);
 
+		var lastwait = null;
+		var lastnumber = null;
+		var lastappointment = null;
+
 		if(( d.length > 1) && (typeof d[d.length-1].lastwait !== "undefined")) {
 			lastwait = d[d.length-1].lastwait;
 			lastnumber = d[d.length-1].lastnumber;
+			lastappointment = d[d.length-1].lastappointment;
 			d.pop();
+		} else if(( d.length > 1) && (typeof d[d.length-1].lastappointment !== "undefined")) {
+			lastappointment = d[d.length-1].lastappointment;
+			d.pop();
+		}
+
+		if( lastwait != null) {
 			document.getElementById( "number").innerHTML = lastnumber;
 			document.getElementById( "minutes").innerHTML = "ca. " + lastwait + " Minuten Wartezeit";
 		} else {
 			document.getElementById( "minutes").innerHTML = 'Zurzeit geschlossen';
+		}
+		if( lastappointment != null) {
+			var today = new Date();
+			today.setDate( today.getDate() + lastappointment);
+
+			document.getElementById( "day").innerHTML = today.getDate();
+			document.getElementById( "month").innerHTML = months[ today.getMonth()];
+			document.getElementById( "weekday").innerHTML = days[ 0 == today.getDay() ? 6: today.getDay() - 1];
 		}
 
         waits = _.map(d, function(d) {

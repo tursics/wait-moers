@@ -146,16 +146,44 @@ a.button:hover:after, ul#control > li:hover:after, ul#control > li.selected:afte
 	content:url('bg-buttongreen-right.png');
 }
 
+div.half {
+	float:left;
+	margin:0;
+	padding:0 1em 0 1em;
+	width:450px;
+}
+
+div#widgets {
+	display:table;
+	margin:0 auto 0 auto;
+}
+
 div#ticket {
 	background:url('bg-ticket.png');
 	background-size:210px 105px;
 	background-repeat:no-repeat;
 	height:105px;
+	margin:43px auto 0 auto;
 	overflow:hidden;
 	position:relative;
-	margin:0 auto 0 auto;
 	white-space:nowrap;
 	width:210px;
+}
+
+div#calendar {
+	background:url('bg-calendar.png');
+	background-size:128px 190px;
+	background-repeat:no-repeat;
+	height:190px;
+	margin:0 auto 0 auto;
+	overflow:hidden;
+	position:relative;
+	white-space:nowrap;
+	width:128px;
+}
+
+div#calendar a {
+	text-decoration:none;
 }
 
 div#city, div#entity {
@@ -205,6 +233,52 @@ div#minutes {
 	margin:0;
 	padding:5px 0 0 0;
 	text-align:center;
+}
+
+div#day, div#month, div#weekday, div#info {
+	color:rgba(95,56,12,.8);
+	font-size:14px;
+	line-height:20px;
+	margin:0 15px 0 15px;
+	min-height:20px;
+	text-align:center;
+}
+
+div#month {
+	background:rgba(95,56,12,.7);
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	color:#ffffff;
+	margin-top:26px;
+	text-transform:uppercase;
+}
+
+div#day {
+	color:rgba(95,56,12,1);
+	font-size:90px;
+	line-height:66px;
+	min-height:66px;
+}
+
+div#weekday {
+	background:rgba(95,56,12,.7);
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	color:#ffffff;
+	margin-top:14px;
+	text-transform:uppercase;
+}
+
+div#info {
+	color:rgba(95,56,12,.4);
+	line-height:14px;
+	margin-top:5px;
+}
+
+div#clear {
+	clear:both;
 }
 
 div#graph {
