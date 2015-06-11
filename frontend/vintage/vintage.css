@@ -78,6 +78,11 @@ div.text, ul#control, svg text, div.box {
 	margin:0 1em 1em 1em;
 }
 
+div.smalltext {
+	font-size:.92em;
+	margin:1em 1em 0 1em;
+}
+
 table, pre, div.box {
 	background:#f9eed0 url('bg-box.png');
 	border:1px solid #ffffff;
@@ -163,7 +168,7 @@ div#ticket {
 	background-size:210px 105px;
 	background-repeat:no-repeat;
 	height:105px;
-	margin:43px auto 0 auto;
+	margin:59px auto 59px auto;
 	overflow:hidden;
 	position:relative;
 	white-space:nowrap;
