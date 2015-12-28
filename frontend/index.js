@@ -96,6 +96,9 @@ d3.json("data.php",
 			document.getElementById( "minutes").innerHTML = "ca. " + lastwait + " Minuten Wartezeit";
 		} else {
 			document.getElementById( "minutes").innerHTML = 'Zurzeit geschlossen';
+
+//			document.getElementById( "minutes").innerHTML = 'Anzeige wegen<br>Wartungsarbeiten<br>außer Betrieb';
+//			document.getElementById( "minutes").style.marginTop = '-17px';
 		}
 		if( lastappointment != null) {
 			var today = new Date();
