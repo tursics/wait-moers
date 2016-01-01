@@ -3,7 +3,8 @@
 function getCurrentWaitDataXML()
 {
 	// http://download.moers.de/Wartezeiten/wartezeiten.txt
-	$dataURL = 'http://www.moers.de/www/webio.nsf/generateViewFromTemplate?OpenAgent&layout=Wartezeiten&nocache=1';
+//	$dataURL = 'http://www.moers.de/www/webio.nsf/generateViewFromTemplate?OpenAgent&layout=Wartezeiten&nocache=1';
+	$dataURL = 'https://www.moers.de/de/opendataxml/wartezeiten/';
 	return file_get_contents( $dataURL);
 }
 
